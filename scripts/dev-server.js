@@ -115,7 +115,12 @@ async function main() {
     createProxyMiddleware({
       target: `http://127.0.0.1:${SALES_REP_PORT}`,
       changeOrigin: true,
-      on: { error: proxyOnError("sales-rep") },
+      on: {
+        proxyReq: (proxyReq) => {
+          proxyReq.setHeader("X-Forwarded-Prefix", "/apps/sales-rep");
+        },
+        error: proxyOnError("sales-rep"),
+      },
     })
   );
 
@@ -124,7 +129,12 @@ async function main() {
     createProxyMiddleware({
       target: `http://127.0.0.1:${HOME_EFF_PORT}`,
       changeOrigin: true,
-      on: { error: proxyOnError("home-efficiency") },
+      on: {
+        proxyReq: (proxyReq) => {
+          proxyReq.setHeader("X-Forwarded-Prefix", "/apps/home-efficiency");
+        },
+        error: proxyOnError("home-efficiency"),
+      },
     })
   );
 
