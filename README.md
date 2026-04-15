@@ -12,6 +12,7 @@ This repository holds **strategic product documentation** and, via **git submodu
 | [`REPOS.md`](./REPOS.md) | How this repo relates to other GitHub repos |
 | [`assets/`](./assets/README.md) | Placeholder for PDFs / website copy you choose to version here |
 | [`scripts/publish-to-github.sh`](./scripts/publish-to-github.sh) | Create GitHub repo (needs `GITHUB_TOKEN`) and push |
+| [`docs/GITHUB-SETUP.md`](./docs/GITHUB-SETUP.md) | **First-time publish** — create empty repo on GitHub, then `git push` |
 
 ## Related repositories
 
