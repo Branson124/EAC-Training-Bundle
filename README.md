@@ -17,8 +17,8 @@ Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool
 
 | Tab | Served from | Notes |
 |-----|-------------|--------|
-| Door Setter | `/apps/sales-rep/` | Door setter workflow only (`app.html`). Same Node server as Client Home Docs. Hub spawns it on `SALES_REP_PORT` (default `4001`). |
-| Client Home Docs | `/apps/sales-rep/client-home-docs.html` | Client attic / systems form, photos & videos per client ID; data under `storage/homeDocs/` on the sales-rep server. |
+| Door Setter | `/apps/sales-rep/` | Door setter workflow only (`app.html`). Optional **cross-device sync**: set the same secret phrase on each device to load/save state via `GET/PUT /api/sync/door-setter/:syncId/state` (requires HTTPS for `crypto.subtle`). Same Node server as Client Home Docs. Hub spawns it on `SALES_REP_PORT` (default `4001`). |
+| Client Home Docs | `/apps/sales-rep/client-home-docs.html` | Client attic / systems form, photos & videos per **Client ID**; data under `storage/homeDocs/` on the server. Use the **same Client ID** on phone and desktop to see the same job (no passphrase — type or paste the ID). |
 | Command Center | `/apps/eac-command-center/` | Static `index.html` (CDN React). |
 | Home Efficiency | `/apps/home-efficiency/` | Node server (`hep-photo-server`); hub spawns on `HOME_EFFICIENCY_PORT` (default `4002`). |
 | EAC CRM | `/apps/eac-crm/` | Static `index.html` + `app.js`. |
