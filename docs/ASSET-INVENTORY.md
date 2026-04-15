@@ -4,6 +4,8 @@ This document maps **repositories**, **application code**, and **companion asset
 
 **CRM application repo:** [github.com/branson124/EAC-CRM](https://github.com/branson124/EAC-CRM)
 
+**In this monorepo:** the CRM is also checked out at [`packages/eac-crm/`](../packages/eac-crm) (git submodule). Use GitHub URLs below for web links; use the local path for development inside the bundle.
+
 ---
 
 ## 1. Pipeline CRM (separate GitHub repository)

@@ -1,20 +1,23 @@
 # EAC contractor training bundle (umbrella)
 
-This repository holds **strategic product documentation** for bundling the Energy Advocate Carolinas **sales process**, **playbooks**, and **pipeline CRM** into a B2B offering for contractors. It is intentionally **separate** from the CRM application repo.
+This repository holds **strategic product documentation** and, via **git submodule**, a pinned copy of the **EAC-CRM** app so contractors and your team have **one clone** that maps to one cohesive layout.
 
 ## What lives here
 
 | Path | Contents |
 |------|----------|
 | [`docs/`](./docs/README.md) | Asset inventory, buyer model, Phase A–C planning |
-| [`REPOS.md`](./REPOS.md) | How this repo relates to **EAC-CRM** and other GitHub repos |
+| [`packages/eac-crm/`](./packages/eac-crm) | **Submodule** — [EAC-CRM](https://github.com/branson124/EAC-CRM) (pipeline CRM; deploy from that repo or this monorepo path) |
+| [`STRUCTURE.md`](./STRUCTURE.md) | Monorepo layout, submodule commands |
+| [`REPOS.md`](./REPOS.md) | How this repo relates to other GitHub repos |
 | [`assets/`](./assets/README.md) | Placeholder for PDFs / website copy you choose to version here |
+| [`scripts/publish-to-github.sh`](./scripts/publish-to-github.sh) | Create GitHub repo (needs `GITHUB_TOKEN`) and push |
 
 ## Related repositories
 
-- **[EAC-CRM](https://github.com/branson124/EAC-CRM)** — static client tracker (IndexedDB), pipeline stages, import/export.
+- **[EAC-CRM](https://github.com/branson124/EAC-CRM)** — source of `packages/eac-crm`; static client tracker, IndexedDB, import/export.
 
-Add other application or marketing repos to `REPOS.md` as you create them.
+Add other application repos as **submodules** under `packages/` when they exist (see `REPOS.md`).
 
 ---
 

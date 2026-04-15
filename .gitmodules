@@ -1,0 +1,3 @@
+[submodule "packages/eac-crm"]
+	path = packages/eac-crm
+	url = https://github.com/branson124/EAC-CRM.git
