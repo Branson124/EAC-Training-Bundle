@@ -105,16 +105,17 @@
       (<code>npm run dev</code> from the repo root) so their photo APIs run locally.
     </p>
     <div class="tabs" role="tablist" aria-label="EAC applications">
-      <button type="button" class="tab" role="tab" id="tab-sales" aria-selected="false" data-target="sales">Sales Rep Consultant</button>
+      <button type="button" class="tab" role="tab" id="tab-sales" aria-selected="false" data-target="sales">Door Setter</button>
       <button type="button" class="tab" role="tab" id="tab-cc" aria-selected="false" data-target="cc">Command Center</button>
       <button type="button" class="tab" role="tab" id="tab-hep" aria-selected="false" data-target="hep">Home Efficiency</button>
       <button type="button" class="tab" role="tab" id="tab-crm" aria-selected="false" data-target="crm">EAC CRM</button>
       <button type="button" class="tab" role="tab" id="tab-mj" aria-selected="false" data-target="mj">Manual J</button>
+      <button type="button" class="tab" role="tab" id="tab-home-docs" aria-selected="false" data-target="home-docs">Client Home Docs</button>
     </div>
   </header>
   <main>
     <section class="panel" id="panel-sales" role="tabpanel" aria-labelledby="tab-sales">
-      <iframe title="Sales Rep Consultant" data-src="/apps/sales-rep/"></iframe>
+      <iframe title="Door Setter" data-src="/apps/sales-rep/"></iframe>
     </section>
     <section class="panel" id="panel-cc" role="tabpanel" aria-labelledby="tab-cc">
       <iframe title="EAC Command Center" data-src="/apps/eac-command-center/index.html"></iframe>
@@ -128,6 +129,9 @@
     <section class="panel" id="panel-mj" role="tabpanel" aria-labelledby="tab-mj">
       <iframe title="Manual J Load Calculator" data-src="/apps/manual-j-calculator/index.html"></iframe>
     </section>
+    <section class="panel" id="panel-home-docs" role="tabpanel" aria-labelledby="tab-home-docs">
+      <iframe title="Client home documentation" data-src="/apps/sales-rep/client-home-docs.html"></iframe>
+    </section>
   </main>
   <script>
     (function () {
@@ -137,6 +141,7 @@
         hep: { panel: document.getElementById("panel-hep"), tab: document.getElementById("tab-hep") },
         crm: { panel: document.getElementById("panel-crm"), tab: document.getElementById("tab-crm") },
         mj: { panel: document.getElementById("panel-mj"), tab: document.getElementById("tab-mj") },
+        "home-docs": { panel: document.getElementById("panel-home-docs"), tab: document.getElementById("tab-home-docs") },
       };
 
       function activate(key) {

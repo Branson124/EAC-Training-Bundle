@@ -17,7 +17,8 @@ Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool
 
 | Tab | Served from | Notes |
 |-----|-------------|--------|
-| Sales Rep Consultant | `/apps/sales-rep/` | Node server (photo uploads); hub spawns it on `SALES_REP_PORT` (default `4001`). |
+| Door Setter | `/apps/sales-rep/` | Door setter workflow only (`app.html`). Same Node server as Client Home Docs. Hub spawns it on `SALES_REP_PORT` (default `4001`). |
+| Client Home Docs | `/apps/sales-rep/client-home-docs.html` | Client attic / systems form, photos & videos per client ID; data under `storage/homeDocs/` on the sales-rep server. |
 | Command Center | `/apps/eac-command-center/` | Static `index.html` (CDN React). |
 | Home Efficiency | `/apps/home-efficiency/` | Node server (`hep-photo-server`); hub spawns on `HOME_EFFICIENCY_PORT` (default `4002`). |
 | EAC CRM | `/apps/eac-crm/` | Static `index.html` + `app.js`. |
@@ -39,6 +40,8 @@ Use a **Node Web Service** (not a Static Site). Set:
 **Start command:** `npm start`
 
 See [`render.yaml`](./render.yaml) for a Blueprint you can paste or sync. After changing env vars, **clear build cache & redeploy** once so the clone includes submodules.
+
+**Persistent storage:** Uploads and `home-data.json` live on disk under `packages/sales-rep-consultant-app/storage/`. On Render, attach a **persistent disk** to the web service and mount it where that path lives (or set a single working directory that survives deploys), or files will be lost when the instance restarts without a disk.
 
 **Submodule note:** `packages/sales-rep-consultant-app/server.js` includes a small path fix so `app.html` resolves when `server.js` lives in the repo root (same layout as on GitHub). Commit that change inside the submodule and push to [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app) when you are ready so the fix is upstream.
 
