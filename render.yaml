@@ -1,0 +1,14 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Mirror these in the dashboard if you create the service manually.
+services:
+  - type: web
+    name: eac-training-bundle
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Required: submodule folders must exist at build time (Sales Rep + Home Efficiency).
+      - key: GIT_SUBMODULE_STRATEGY
+        value: recursive

@@ -25,6 +25,21 @@ Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool
 
 Environment variables: `PORT`, `SALES_REP_PORT`, `HOME_EFFICIENCY_PORT`.
 
+### Render (Web Service)
+
+Use a **Node Web Service** (not a Static Site). Set:
+
+| Variable | Value |
+|----------|--------|
+| **`GIT_SUBMODULE_STRATEGY`** | **`recursive`** (required — otherwise `packages/` submodules are empty and the Sales Rep / Home Efficiency servers never start) |
+| **`NODE_ENV`** | `production` (recommended for session cookies on Home Efficiency) |
+
+**Build command:** `npm install && npm run build` (runs `install:apps` so both backends get `node_modules`, including native deps for `hep-photo-server`).
+
+**Start command:** `npm start`
+
+See [`render.yaml`](./render.yaml) for a Blueprint you can paste or sync. After changing env vars, **clear build cache & redeploy** once so the clone includes submodules.
+
 **Submodule note:** `packages/sales-rep-consultant-app/server.js` includes a small path fix so `app.html` resolves when `server.js` lives in the repo root (same layout as on GitHub). Commit that change inside the submodule and push to [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app) when you are ready so the fix is upstream.
 
 ## What lives here
