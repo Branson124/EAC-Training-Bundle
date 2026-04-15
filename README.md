@@ -1,24 +1,49 @@
 # EAC contractor training bundle (umbrella)
 
-This repository holds **strategic product documentation** and, via **git submodule**, a pinned copy of the **EAC-CRM** app so contractors and your team have **one clone** that maps to one cohesive layout.
+This repository holds **strategic product documentation** and, via **git submodules**, pinned copies of **five EAC apps** behind a single **tabbed hub** for local use.
+
+## App hub (bundled UI)
+
+From the repo root:
+
+```bash
+git submodule update --init --recursive
+npm install
+npm run install:apps
+npm run dev
+```
+
+Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool in its own tab:
+
+| Tab | Served from | Notes |
+|-----|-------------|--------|
+| Sales Rep Consultant | `/apps/sales-rep/` | Node server (photo uploads); hub spawns it on `SALES_REP_PORT` (default `4001`). |
+| Command Center | `/apps/eac-command-center/` | Static `index.html` (CDN React). |
+| Home Efficiency | `/apps/home-efficiency/` | Node server (`hep-photo-server`); hub spawns on `HOME_EFFICIENCY_PORT` (default `4002`). |
+| EAC CRM | `/apps/eac-crm/` | Static `index.html` + `app.js`. |
+| Manual J | `/apps/manual-j-calculator/` | Static `index.html` (CDN React). |
+
+Environment variables: `PORT`, `SALES_REP_PORT`, `HOME_EFFICIENCY_PORT`.
+
+**Submodule note:** `packages/sales-rep-consultant-app/server.js` includes a small path fix so `app.html` resolves when `server.js` lives in the repo root (same layout as on GitHub). Commit that change inside the submodule and push to [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app) when you are ready so the fix is upstream.
 
 ## What lives here
 
 | Path | Contents |
 |------|----------|
 | [`docs/`](./docs/README.md) | Asset inventory, buyer model, Phase A–C planning |
-| [`packages/eac-crm/`](./packages/eac-crm) | **Submodule** — [EAC-CRM](https://github.com/branson124/EAC-CRM) (pipeline CRM; deploy from that repo or this monorepo path) |
+| [`public/index.html`](./public/index.html) | Hub shell (tabs + iframes) |
+| [`scripts/dev-server.js`](./scripts/dev-server.js) | Express: static `/apps/*` + proxy to the two Node backends |
+| [`packages/*`](./STRUCTURE.md) | **Submodules** — CRM, Command Center, Manual J, Sales Rep, Home Efficiency |
 | [`STRUCTURE.md`](./STRUCTURE.md) | Monorepo layout, submodule commands |
-| [`REPOS.md`](./REPOS.md) | How this repo relates to other GitHub repos |
-| [`assets/`](./assets/README.md) | Placeholder for PDFs / website copy you choose to version here |
-| [`scripts/publish-to-github.sh`](./scripts/publish-to-github.sh) | Create GitHub repo (needs `GITHUB_TOKEN`) and push |
-| [`docs/GITHUB-SETUP.md`](./docs/GITHUB-SETUP.md) | **First-time publish** — create empty repo on GitHub, then `git push` |
+| [`REPOS.md`](./REPOS.md) | Submodule URLs and bump workflow |
+| [`assets/`](./assets/README.md) | Placeholder for PDFs / website copy you version here |
+| [`scripts/publish-to-github.sh`](./scripts/publish-to-github.sh) | Create GitHub repo (`GITHUB_TOKEN`) and push |
+| [`docs/GITHUB-SETUP.md`](./docs/GITHUB-SETUP.md) | First-time publish — empty repo on GitHub, then `git push` |
 
 ## Related repositories
 
-- **[EAC-CRM](https://github.com/branson124/EAC-CRM)** — source of `packages/eac-crm`; static client tracker, IndexedDB, import/export.
-
-Add other application repos as **submodules** under `packages/` when they exist (see `REPOS.md`).
+- [EAC-CRM](https://github.com/branson124/EAC-CRM), [eac-command-center](https://github.com/branson124/eac-command-center), [manual-j-calculator](https://github.com/branson124/manual-j-calculator), [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app), [home-efficiency-tool](https://github.com/branson124/home-efficiency-tool)
 
 ---
 

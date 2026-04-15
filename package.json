@@ -1,0 +1,15 @@
+{
+  "name": "eac-training-bundle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Umbrella hub: tabbed access to EAC apps (submodules + dev proxy).",
+  "scripts": {
+    "install:apps": "npm install --prefix packages/sales-rep-consultant-app && npm install --prefix packages/home-efficiency-tool/hep-photo-server",
+    "dev": "node scripts/dev-server.js",
+    "start": "node scripts/dev-server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3"
+  }
+}

@@ -1,12 +1,16 @@
 # Repository layout (umbrella vs apps)
 
-This **EAC-Training-Bundle** repo is the **home for IP, curriculum, and go-to-market docs**, plus **application code via submodules** under [`packages/`](./STRUCTURE.md).
+This **EAC-Training-Bundle** repo is the **home for IP, curriculum, and go-to-market docs**, plus **application code via submodules** under [`packages/`](./STRUCTURE.md), and a **hub** ([`public/index.html`](./public/index.html)) served by [`scripts/dev-server.js`](./scripts/dev-server.js).
 
-## Bundled submodule (current)
+## Bundled submodules
 
 | Path | Remote | Role |
 |------|--------|------|
-| [`packages/eac-crm`](./packages/eac-crm) | `https://github.com/branson124/EAC-CRM.git` | Pipeline CRM — deploy or develop from this path after `git submodule update --init` |
+| [`packages/eac-crm`](./packages/eac-crm) | `https://github.com/branson124/EAC-CRM.git` | Pipeline CRM — static client tracker |
+| [`packages/eac-command-center`](./packages/eac-command-center) | `https://github.com/branson124/eac-command-center.git` | AMI/FPL command center (single-page CDN React) |
+| [`packages/manual-j-calculator`](./packages/manual-j-calculator) | `https://github.com/branson124/manual-j-calculator.git` | Manual J load calculator |
+| [`packages/sales-rep-consultant-app`](./packages/sales-rep-consultant-app) | `https://github.com/branson124/sales-rep-consultant-app.git` | Sales rep tool + Express photo API |
+| [`packages/home-efficiency-tool`](./packages/home-efficiency-tool) | `https://github.com/branson124/home-efficiency-tool.git` | Home efficiency UI + `hep-photo-server` API |
 
 ## Clone this repo
 
@@ -16,7 +20,7 @@ git clone --recursive https://github.com/branson124/EAC-Training-Bundle.git
 git submodule update --init --recursive
 ```
 
-## Bump CRM to latest
+## Bump a submodule to latest
 
 ```bash
 cd packages/eac-crm && git fetch origin && git checkout main && git pull
@@ -26,9 +30,9 @@ git commit -m "Bump eac-crm submodule"
 git push
 ```
 
-Paths in [`docs/ASSET-INVENTORY.md`](./docs/ASSET-INVENTORY.md) reference the **EAC-CRM** GitHub URLs; locally, code lives under `packages/eac-crm/`.
+Paths in [`docs/ASSET-INVENTORY.md`](./docs/ASSET-INVENTORY.md) may reference GitHub URLs; locally, code lives under `packages/<name>/`.
 
-## Future repos to add
+## Optional future repos
 
 | Repo (example name) | Role |
 |---------------------|------|

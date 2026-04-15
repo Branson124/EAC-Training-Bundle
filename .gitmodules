@@ -1,3 +1,15 @@
 [submodule "packages/eac-crm"]
 	path = packages/eac-crm
 	url = https://github.com/branson124/EAC-CRM.git
+[submodule "packages/sales-rep-consultant-app"]
+	path = packages/sales-rep-consultant-app
+	url = https://github.com/branson124/sales-rep-consultant-app.git
+[submodule "packages/eac-command-center"]
+	path = packages/eac-command-center
+	url = https://github.com/branson124/eac-command-center.git
+[submodule "packages/home-efficiency-tool"]
+	path = packages/home-efficiency-tool
+	url = https://github.com/branson124/home-efficiency-tool.git
+[submodule "packages/manual-j-calculator"]
+	path = packages/manual-j-calculator
+	url = https://github.com/branson124/manual-j-calculator.git

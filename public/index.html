@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAC App Hub</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #111827;
+      --border: rgba(148, 163, 184, 0.2);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: rgba(56, 189, 248, 0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 10px 14px 0;
+    }
+    header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-bottom: 10px;
+    }
+    .tab {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .tab:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.45);
+    }
+    .tab[aria-selected="true"] {
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.45);
+      background: var(--accent-dim);
+    }
+    main {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: none;
+    }
+    .panel.active {
+      display: block;
+    }
+    .panel iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Energy Advocate Carolinas — App Hub</h1>
+    <p>
+      Switch tools with the tabs below. Sales Rep and Home Efficiency need the bundled dev server
+      (<code>npm run dev</code> from the repo root) so their photo APIs run locally.
+    </p>
+    <div class="tabs" role="tablist" aria-label="EAC applications">
+      <button type="button" class="tab" role="tab" id="tab-sales" aria-selected="false" data-target="sales">Sales Rep Consultant</button>
+      <button type="button" class="tab" role="tab" id="tab-cc" aria-selected="false" data-target="cc">Command Center</button>
+      <button type="button" class="tab" role="tab" id="tab-hep" aria-selected="false" data-target="hep">Home Efficiency</button>
+      <button type="button" class="tab" role="tab" id="tab-crm" aria-selected="false" data-target="crm">EAC CRM</button>
+      <button type="button" class="tab" role="tab" id="tab-mj" aria-selected="false" data-target="mj">Manual J</button>
+    </div>
+  </header>
+  <main>
+    <section class="panel" id="panel-sales" role="tabpanel" aria-labelledby="tab-sales">
+      <iframe title="Sales Rep Consultant" data-src="/apps/sales-rep/"></iframe>
+    </section>
+    <section class="panel" id="panel-cc" role="tabpanel" aria-labelledby="tab-cc">
+      <iframe title="EAC Command Center" data-src="/apps/eac-command-center/index.html"></iframe>
+    </section>
+    <section class="panel" id="panel-hep" role="tabpanel" aria-labelledby="tab-hep">
+      <iframe title="Home Efficiency Program" data-src="/apps/home-efficiency/"></iframe>
+    </section>
+    <section class="panel" id="panel-crm" role="tabpanel" aria-labelledby="tab-crm">
+      <iframe title="EAC Client Tracker" data-src="/apps/eac-crm/index.html"></iframe>
+    </section>
+    <section class="panel" id="panel-mj" role="tabpanel" aria-labelledby="tab-mj">
+      <iframe title="Manual J Load Calculator" data-src="/apps/manual-j-calculator/index.html"></iframe>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const map = {
+        sales: { panel: document.getElementById("panel-sales"), tab: document.getElementById("tab-sales") },
+        cc: { panel: document.getElementById("panel-cc"), tab: document.getElementById("tab-cc") },
+        hep: { panel: document.getElementById("panel-hep"), tab: document.getElementById("tab-hep") },
+        crm: { panel: document.getElementById("panel-crm"), tab: document.getElementById("tab-crm") },
+        mj: { panel: document.getElementById("panel-mj"), tab: document.getElementById("tab-mj") },
+      };
+
+      function activate(key) {
+        Object.keys(map).forEach((k) => {
+          const { panel, tab } = map[k];
+          const on = k === key;
+          tab.setAttribute("aria-selected", on ? "true" : "false");
+          panel.classList.toggle("active", on);
+          if (on) {
+            const iframe = panel.querySelector("iframe");
+            if (iframe && !iframe.getAttribute("src")) {
+              iframe.setAttribute("src", iframe.getAttribute("data-src"));
+            }
+          }
+        });
+      }
+
+      document.querySelectorAll(".tab").forEach((btn) => {
+        btn.addEventListener("click", () => activate(btn.getAttribute("data-target")));
+      });
+
+      activate("sales");
+    })();
+  </script>
+</body>
+</html>
