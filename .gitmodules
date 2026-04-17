@@ -13,3 +13,6 @@
 [submodule "packages/manual-j-calculator"]
 	path = packages/manual-j-calculator
 	url = https://github.com/branson124/manual-j-calculator.git
+[submodule "packages/ami-calculator"]
+	path = packages/ami-calculator
+	url = https://github.com/Branson124/AMI-calculator.git

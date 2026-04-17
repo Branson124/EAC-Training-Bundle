@@ -1,6 +1,6 @@
 /**
  * Serves the hub (public/) and static sub-apps under /apps/*.
- * Proxies Express-backed apps: sales-rep-consultant-app and home-efficiency-tool.
+ * Proxies Express-backed apps: sales-rep-consultant-app and AMI-calculator (Home Efficiency tab).
  */
 const fs = require("fs");
 const http = require("http");
@@ -15,9 +15,9 @@ const SALES_REP_PORT = Number(process.env.SALES_REP_PORT || 4001);
 const HOME_EFF_PORT = Number(process.env.HOME_EFFICIENCY_PORT || 4002);
 
 const SALES_CWD = path.join(ROOT, "packages", "sales-rep-consultant-app");
-const HEP_CWD = path.join(ROOT, "packages", "home-efficiency-tool", "hep-photo-server");
+const AMI_CWD = path.join(ROOT, "packages", "ami-calculator");
 const SALES_SERVER = path.join(SALES_CWD, "server.js");
-const HEP_SERVER = path.join(HEP_CWD, "server.js");
+const AMI_SERVER = path.join(AMI_CWD, "server.js");
 
 const children = [];
 
@@ -94,7 +94,7 @@ function proxyOnError(label) {
 
 async function main() {
   spawnServer("sales-rep-consultant-app", SALES_CWD, SALES_SERVER, SALES_REP_PORT);
-  spawnServer("home-efficiency (hep-photo-server)", HEP_CWD, HEP_SERVER, HOME_EFF_PORT);
+  spawnServer("ami-calculator (Home Efficiency tab)", AMI_CWD, AMI_SERVER, HOME_EFF_PORT);
 
   console.log("[hub] Waiting for backends to listen…");
   try {
@@ -103,7 +103,7 @@ async function main() {
   } catch (e) {
     console.error("[hub] Backends did not become ready:", e.message);
     console.error(
-      "[hub] Ensure `npm run install:apps` ran at build time and native deps built (hep-photo-server)."
+      "[hub] Ensure `npm run install:apps` ran at build time (ami-calculator + sales-rep)."
     );
     process.exit(1);
   }

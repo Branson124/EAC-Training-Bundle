@@ -10,7 +10,8 @@ This **EAC-Training-Bundle** repo is the **home for IP, curriculum, and go-to-ma
 | [`packages/eac-command-center`](./packages/eac-command-center) | `https://github.com/branson124/eac-command-center.git` | AMI/FPL command center (single-page CDN React) |
 | [`packages/manual-j-calculator`](./packages/manual-j-calculator) | `https://github.com/branson124/manual-j-calculator.git` | Manual J load calculator |
 | [`packages/sales-rep-consultant-app`](./packages/sales-rep-consultant-app) | `https://github.com/branson124/sales-rep-consultant-app.git` | Sales rep tool + Express photo API |
-| [`packages/home-efficiency-tool`](./packages/home-efficiency-tool) | `https://github.com/branson124/home-efficiency-tool.git` | Home efficiency UI + `hep-photo-server` API |
+| [`packages/ami-calculator`](./packages/ami-calculator) | `https://github.com/Branson124/AMI-calculator.git` | **Home Efficiency hub tab** — NC AMI tier calculator + intake API |
+| [`packages/home-efficiency-tool`](./packages/home-efficiency-tool) | `https://github.com/branson124/home-efficiency-tool.git` | Legacy field app (optional; not started by the hub) |
 
 ## Clone this repo
 

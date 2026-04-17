@@ -1,6 +1,6 @@
 # EAC contractor training bundle (umbrella)
 
-This repository holds **strategic product documentation** and, via **git submodules**, pinned copies of **five EAC apps** behind a single **tabbed hub** for local use.
+This repository holds **strategic product documentation** and, via **git submodules**, pinned copies of **EAC apps** behind a single **tabbed hub** for local use.
 
 ## App hub (bundled UI)
 
@@ -20,7 +20,7 @@ Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool
 | Door Setter | `/apps/sales-rep/` | Door setter workflow only (`app.html`). Optional **cross-device sync**: set the same secret phrase on each device to load/save state via `GET/PUT /api/sync/door-setter/:syncId/state` (requires HTTPS for `crypto.subtle`). Same Node server as Client Home Docs. Hub spawns it on `SALES_REP_PORT` (default `4001`). |
 | Client Home Docs | `/apps/sales-rep/client-home-docs.html` | Client attic / systems form, photos & videos per **Client ID**; data under `storage/homeDocs/` on the server. Use the **same Client ID** on phone and desktop to see the same job (no passphrase — type or paste the ID). |
 | Command Center | `/apps/eac-command-center/` | Static `index.html` (CDN React). |
-| Home Efficiency | `/apps/home-efficiency/` | Node server (`hep-photo-server`); hub spawns on `HOME_EFFICIENCY_PORT` (default `4002`). |
+| Home Efficiency | `/apps/home-efficiency/` | [AMI-calculator](https://github.com/Branson124/AMI-calculator) — NC AMI tier check & intake; hub spawns on `HOME_EFFICIENCY_PORT` (default `4002`). |
 | EAC CRM | `/apps/eac-crm/` | Static `index.html` + `app.js`. |
 | Manual J | `/apps/manual-j-calculator/` | Static `index.html` (CDN React). |
 
@@ -35,9 +35,9 @@ Use a **Node Web Service** (not a Static Site). Set:
 | Variable | Value |
 |----------|--------|
 | **`GIT_SUBMODULE_STRATEGY`** | **`recursive`** (required — otherwise `packages/` submodules are empty and the Sales Rep / Home Efficiency servers never start) |
-| **`NODE_ENV`** | `production` (recommended for session cookies on Home Efficiency) |
+| **`NODE_ENV`** | `production` (recommended for session cookies on Sales Rep / Client Home Docs) |
 
-**Build command:** `npm install && npm run build` (runs `install:apps` so both backends get `node_modules`, including native deps for `hep-photo-server`).
+**Build command:** `npm install && npm run build` (runs `install:apps` so Sales Rep and AMI-calculator get `node_modules`).
 
 **Start command:** `npm start`
 
@@ -54,7 +54,7 @@ See [`render.yaml`](./render.yaml) for a Blueprint you can paste or sync. After 
 | [`docs/`](./docs/README.md) | Asset inventory, buyer model, Phase A–C planning |
 | [`public/index.html`](./public/index.html) | Hub shell (tabs + iframes) |
 | [`scripts/dev-server.js`](./scripts/dev-server.js) | Express: static `/apps/*` + proxy to the two Node backends |
-| [`packages/*`](./STRUCTURE.md) | **Submodules** — CRM, Command Center, Manual J, Sales Rep, Home Efficiency |
+| [`packages/*`](./STRUCTURE.md) | **Submodules** — CRM, Command Center, Manual J, Sales Rep, AMI calculator, optional legacy `home-efficiency-tool` |
 | [`STRUCTURE.md`](./STRUCTURE.md) | Monorepo layout, submodule commands |
 | [`REPOS.md`](./REPOS.md) | Submodule URLs and bump workflow |
 | [`assets/`](./assets/README.md) | Placeholder for PDFs / website copy you version here |
@@ -63,7 +63,7 @@ See [`render.yaml`](./render.yaml) for a Blueprint you can paste or sync. After 
 
 ## Related repositories
 
-- [EAC-CRM](https://github.com/branson124/EAC-CRM), [eac-command-center](https://github.com/branson124/eac-command-center), [manual-j-calculator](https://github.com/branson124/manual-j-calculator), [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app), [home-efficiency-tool](https://github.com/branson124/home-efficiency-tool)
+- [EAC-CRM](https://github.com/branson124/EAC-CRM), [eac-command-center](https://github.com/branson124/eac-command-center), [manual-j-calculator](https://github.com/branson124/manual-j-calculator), [sales-rep-consultant-app](https://github.com/branson124/sales-rep-consultant-app), [AMI-calculator](https://github.com/Branson124/AMI-calculator), [home-efficiency-tool](https://github.com/branson124/home-efficiency-tool) (legacy; not used by the hub tab)
 
 ---
 

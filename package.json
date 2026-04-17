@@ -4,7 +4,7 @@
   "private": true,
   "description": "Umbrella hub: tabbed access to EAC apps (submodules + dev proxy).",
   "scripts": {
-    "install:apps": "npm install --prefix packages/sales-rep-consultant-app && npm install --prefix packages/home-efficiency-tool/hep-photo-server",
+    "install:apps": "npm install --prefix packages/sales-rep-consultant-app && npm install --prefix packages/ami-calculator",
     "build": "npm run install:apps",
     "dev": "node scripts/dev-server.js",
     "start": "node scripts/dev-server.js"
