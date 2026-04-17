@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EAC App Hub</title>
+  <meta name="eac-supabase-url" content="https://yubjuraosaprzeqmwhwr.supabase.co"/>
+  <meta name="eac-supabase-anon-key" content="sb_publishable_hMtB8wZak_11-JRNwBjh2Q_VlKBSG23"/>
+  <script src="/apps/eac-crm/vendor/supabase.js"></script>
   <style>
     :root {
       --bg: #0b1220;
@@ -95,15 +98,72 @@
       border: 0;
       background: #0f172a;
     }
+    .auth-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 8px 0 10px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .auth-bar input[type=email] {
+      background: rgba(18,28,52,0.9);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 12px;
+      padding: 7px 10px;
+      width: 220px;
+      font-family: inherit;
+    }
+    .auth-btn {
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      color: #fff;
+    }
+    .auth-btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .auth-status {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .auth-status strong {
+      color: var(--text);
+    }
+    .auth-msg {
+      font-size: 11px;
+      color: var(--accent);
+      width: 100%;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Energy Advocate Carolinas — App Hub</h1>
     <p>
-      Switch tools with the tabs below. Door Setter and Client Home Docs use the bundled sales-rep server;
-      Home Efficiency serves the NC AMI calculator (<code>npm run dev</code> from the repo root).
+      Sign in once below — all tabs (CRM, Door Setter, Home Docs, etc.) share the same account and save to the cloud automatically.
     </p>
+    <div class="auth-bar" id="auth-bar">
+      <div id="auth-form">
+        <input type="email" id="auth-email" placeholder="you@company.com" autocomplete="email"/>
+        <button type="button" class="auth-btn" id="auth-send">Sign in</button>
+      </div>
+      <div id="auth-signed" style="display:none">
+        <span class="auth-status">Signed in as <strong id="auth-user-email"></strong></span>
+        <button type="button" class="auth-btn ghost" id="auth-signout">Sign out</button>
+      </div>
+      <div class="auth-msg" id="auth-msg"></div>
+    </div>
     <div class="tabs" role="tablist" aria-label="EAC applications">
       <button type="button" class="tab" role="tab" id="tab-sales" aria-selected="false" data-target="sales">Door Setter</button>
       <button type="button" class="tab" role="tab" id="tab-cc" aria-selected="false" data-target="cc">Command Center</button>
@@ -135,6 +195,7 @@
   </main>
   <script>
     (function () {
+      /* ── Tab switching ── */
       const map = {
         sales: { panel: document.getElementById("panel-sales"), tab: document.getElementById("tab-sales") },
         cc: { panel: document.getElementById("panel-cc"), tab: document.getElementById("tab-cc") },
@@ -164,6 +225,66 @@
       });
 
       activate("sales");
+
+      /* ── Supabase auth (hub level) ── */
+      var sbUrl = (document.querySelector('meta[name="eac-supabase-url"]') || {}).content || "";
+      var sbKey = (document.querySelector('meta[name="eac-supabase-anon-key"]') || {}).content || "";
+      var sb = null;
+
+      if (sbUrl && sbKey && window.supabase && window.supabase.createClient) {
+        sb = window.supabase.createClient(sbUrl, sbKey);
+      }
+
+      var formEl   = document.getElementById("auth-form");
+      var signedEl = document.getElementById("auth-signed");
+      var emailEl  = document.getElementById("auth-user-email");
+      var msgEl    = document.getElementById("auth-msg");
+      var sendBtn  = document.getElementById("auth-send");
+      var outBtn   = document.getElementById("auth-signout");
+      var inp      = document.getElementById("auth-email");
+
+      function showAuth(session) {
+        if (session && session.user) {
+          formEl.style.display = "none";
+          signedEl.style.display = "";
+          emailEl.textContent = session.user.email || "Signed in";
+          msgEl.textContent = "";
+        } else {
+          formEl.style.display = "";
+          signedEl.style.display = "none";
+          emailEl.textContent = "";
+        }
+      }
+
+      if (sb) {
+        sb.auth.getSession().then(function (r) { showAuth(r.data.session); });
+        sb.auth.onAuthStateChange(function (_e, sess) { showAuth(sess); });
+
+        sendBtn.addEventListener("click", function () {
+          var email = (inp.value || "").trim();
+          if (!email) { msgEl.textContent = "Enter your email."; return; }
+          msgEl.textContent = "Sending...";
+          sb.auth.signInWithOtp({
+            email: email,
+            options: { emailRedirectTo: window.location.origin + "/" }
+          }).then(function (res) {
+            if (res.error) msgEl.textContent = res.error.message;
+            else msgEl.textContent = "Check your email for the sign-in link.";
+          });
+        });
+
+        outBtn.addEventListener("click", function () {
+          sb.auth.signOut().then(function () {
+            showAuth(null);
+            document.querySelectorAll("iframe[src]").forEach(function (f) {
+              f.contentWindow.location.reload();
+            });
+          });
+        });
+      } else {
+        msgEl.textContent = "Supabase not loaded — sign-in unavailable.";
+        sendBtn.disabled = true;
+      }
     })();
   </script>
 </body>
