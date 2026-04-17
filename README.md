@@ -26,6 +26,8 @@ Open **http://127.0.0.1:3000/** (override with `PORT=`). The hub loads each tool
 
 Environment variables: `PORT`, `SALES_REP_PORT`, `HOME_EFFICIENCY_PORT`.
 
+**Supabase (company database):** SQL migrations and redirect-URL checklist live in [`supabase/README.md`](./supabase/README.md). Apply migrations in order after creating your Supabase project.
+
 ### Render (Web Service)
 
 Use a **Node Web Service** (not a Static Site). Set:

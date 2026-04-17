@@ -115,6 +115,8 @@ async function main() {
     createProxyMiddleware({
       target: `http://127.0.0.1:${SALES_REP_PORT}`,
       changeOrigin: true,
+      // Browsers hit /apps/sales-rep/... on the hub; backends listen at /... only.
+      pathRewrite: { "^/apps/sales-rep": "" },
       on: {
         proxyReq: (proxyReq) => {
           proxyReq.setHeader("X-Forwarded-Prefix", "/apps/sales-rep");
@@ -129,6 +131,7 @@ async function main() {
     createProxyMiddleware({
       target: `http://127.0.0.1:${HOME_EFF_PORT}`,
       changeOrigin: true,
+      pathRewrite: { "^/apps/home-efficiency": "" },
       on: {
         proxyReq: (proxyReq) => {
           proxyReq.setHeader("X-Forwarded-Prefix", "/apps/home-efficiency");
